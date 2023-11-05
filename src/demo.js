@@ -1,10 +1,10 @@
 import Parser from "./parser.js";
-import { and, equals, greaterThanOrEqual, lessThan, notEquals } from "./utility.js";
+import { equals, greaterThanOrEqualTo, lessThan } from "./utility.js";
 
 // Can use with multiple operators
 const params = new Parser()
   .equals('name', 'John')
-  .oneOf('city', ['London', 'New York'])
+  .isOneOf('city', ['London', 'New York'])
   .build();
 
 console.log(params);
@@ -12,7 +12,7 @@ console.log(params);
 
 // Even supports complex operations such as and/or and nested operations
 const params2 = new Parser()
-  .and(greaterThanOrEqual('amount', 0), lessThan('amount', 100))
+  .and(greaterThanOrEqualTo('amount', 0), lessThan('amount', 100))
   .or(equals('payment_mode', 'corporate_card'), equals('payment_mode', 'paid_by_company'))
   .build();
 
