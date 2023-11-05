@@ -35,7 +35,7 @@ Parser.prototype.lessThan = function (column, value) {
   return this;
 }
 
-Parser.prototype.lessThanOrEqual = function (column, value) {
+Parser.prototype.lessThanOrEqualTo = function (column, value) {
   this._params = {
     ...this._params,
     ...{
@@ -57,7 +57,7 @@ Parser.prototype.greaterThan = function (column, value) {
   return this;
 }
 
-Parser.prototype.greaterThanOrEqual = function (column, value) {
+Parser.prototype.greaterThanOrEqualTo = function (column, value) {
   this._params = {
     ...this._params,
     ...{
@@ -68,7 +68,7 @@ Parser.prototype.greaterThanOrEqual = function (column, value) {
   return this;
 }
 
-Parser.prototype.oneOf = function (column, values) {
+Parser.prototype.isOneOf = function (column, values) {
   this._params = {
     ...this._params,
     ...{
@@ -79,11 +79,33 @@ Parser.prototype.oneOf = function (column, values) {
   return this;
 }
 
-Parser.prototype.notOneOf = function (column, values) {
+Parser.prototype.isNotOneOf = function (column, values) {
   this._params = {
     ...this._params,
     ...{
       [column]: `not_in.(${values.join(',')})`
+    }
+  };
+
+  return this;
+}
+
+Parser.prototype.is = function (column, value) {
+  this._params = {
+    ...this._params,
+    ...{
+      [column]: `is.${value}`
+    }
+  };
+
+  return this;
+}
+
+Parser.prototype.isNot = function (column, value) {
+  this._params = {
+    ...this._params,
+    ...{
+      [column]: `is_not.${value}`
     }
   };
 
@@ -128,6 +150,50 @@ Parser.prototype.notIlike = function (column, value) {
     ...this._params,
     ...{
       [column]: `not_ilike.%${value}% `
+    }
+  };
+
+  return this;
+}
+
+Parser.prototype.contains = function (column, values) {
+  this._params = {
+    ...this._params,
+    ...{
+      [column]: `cs.${values.join(',')}`
+    }
+  };
+
+  return this;
+}
+
+Parser.prototype.overlaps = function (column, values) {
+  this._params = {
+    ...this._params,
+    ...{
+      [column]: `ov.(${values.join(',')})`
+    }
+  };
+
+  return this;
+}
+
+Parser.prototype.any = function (column, value) {
+  this._params = {
+    ...this._params,
+    ...{
+      [column]: `any.${value}`
+    }
+  };
+
+  return this;
+}
+
+Parser.prototype.notAny = function (column, value) {
+  this._params = {
+    ...this._params,
+    ...{
+      [column]: `not_any.${value}`
     }
   };
 

@@ -18,9 +18,9 @@ export const lessThan = function (column, value) {
     .build();
 };
 
-export const lessThanOrEqual = function (column, value) {
+export const lessThanOrEqualTo = function (column, value) {
   return new Parser()
-    .lessThanOrEqual(column, value)
+    .lessThanOrEqualTo(column, value)
     .build();
 };
 
@@ -30,21 +30,33 @@ export const greaterThan = function (column, value) {
     .build();
 };
 
-export const greaterThanOrEqual = function (column, value) {
+export const greaterThanOrEqualTo = function (column, value) {
   return new Parser()
     .greaterThanOrEqual(column, value)
     .build();
 };
 
-export const oneOf = function (column, values) {
+export const isOneOf = function (column, values) {
   return new Parser()
-    .oneOf(column, values)
+    .isOneOf(column, values)
     .build();
 };
 
-export const notOneOf = function (column, values) {
+export const isNotOneOf = function (column, values) {
   return new Parser()
-    .notOneOf(column, values)
+    .isNotOneOf(column, values)
+    .build();
+};
+
+export const is = function (column, value) {
+  return new Parser()
+    .is(column, value)
+    .build();
+};
+
+export const isNot = function (column, value) {
+  return new Parser()
+    .isNot(column, value)
     .build();
 };
 
@@ -57,6 +69,30 @@ export const like = function (column, value) {
 export const notLike = function (column, value) {
   return new Parser()
     .notLike(column, value)
+    .build();
+};
+
+export const contains = function (column, values) {
+  return new Parser()
+    .contains(column, values)
+    .build();
+};
+
+export const overlaps = function (column, values) {
+  return new Parser()
+    .overlaps(column, values)
+    .build();
+};
+
+export const any = function (column, value) {
+  return new Parser()
+    .any(column, value)
+    .build();
+};
+
+export const notAny = function (column, value) {
+  return new Parser()
+    .notAny(column, value)
     .build();
 };
 
