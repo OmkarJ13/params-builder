@@ -1,8 +1,8 @@
-const Parser = function () {
+const ParamsBuilder = function () {
   this._params = {};
 };
 
-Parser.prototype.equals = function (column, value) {
+ParamsBuilder.prototype.equals = function (column, value) {
   this._params = {
     ...this._params,
     ...{
@@ -13,7 +13,7 @@ Parser.prototype.equals = function (column, value) {
   return this;
 };
 
-Parser.prototype.notEquals = function (column, value) {
+ParamsBuilder.prototype.notEquals = function (column, value) {
   this._params = {
     ...this._params,
     ...{
@@ -24,7 +24,7 @@ Parser.prototype.notEquals = function (column, value) {
   return this;
 }
 
-Parser.prototype.lessThan = function (column, value) {
+ParamsBuilder.prototype.lessThan = function (column, value) {
   this._params = {
     ...this._params,
     ...{
@@ -35,7 +35,7 @@ Parser.prototype.lessThan = function (column, value) {
   return this;
 }
 
-Parser.prototype.lessThanOrEqualTo = function (column, value) {
+ParamsBuilder.prototype.lessThanOrEqualTo = function (column, value) {
   this._params = {
     ...this._params,
     ...{
@@ -46,7 +46,7 @@ Parser.prototype.lessThanOrEqualTo = function (column, value) {
   return this;
 }
 
-Parser.prototype.greaterThan = function (column, value) {
+ParamsBuilder.prototype.greaterThan = function (column, value) {
   this._params = {
     ...this._params,
     ...{
@@ -57,7 +57,7 @@ Parser.prototype.greaterThan = function (column, value) {
   return this;
 }
 
-Parser.prototype.greaterThanOrEqualTo = function (column, value) {
+ParamsBuilder.prototype.greaterThanOrEqualTo = function (column, value) {
   this._params = {
     ...this._params,
     ...{
@@ -68,7 +68,7 @@ Parser.prototype.greaterThanOrEqualTo = function (column, value) {
   return this;
 }
 
-Parser.prototype.isOneOf = function (column, values) {
+ParamsBuilder.prototype.isOneOf = function (column, values) {
   this._params = {
     ...this._params,
     ...{
@@ -79,7 +79,7 @@ Parser.prototype.isOneOf = function (column, values) {
   return this;
 }
 
-Parser.prototype.isNotOneOf = function (column, values) {
+ParamsBuilder.prototype.isNotOneOf = function (column, values) {
   this._params = {
     ...this._params,
     ...{
@@ -90,7 +90,7 @@ Parser.prototype.isNotOneOf = function (column, values) {
   return this;
 }
 
-Parser.prototype.is = function (column, value) {
+ParamsBuilder.prototype.is = function (column, value) {
   this._params = {
     ...this._params,
     ...{
@@ -101,7 +101,7 @@ Parser.prototype.is = function (column, value) {
   return this;
 }
 
-Parser.prototype.isNot = function (column, value) {
+ParamsBuilder.prototype.isNot = function (column, value) {
   this._params = {
     ...this._params,
     ...{
@@ -112,7 +112,7 @@ Parser.prototype.isNot = function (column, value) {
   return this;
 }
 
-Parser.prototype.like = function (column, value) {
+ParamsBuilder.prototype.like = function (column, value) {
   this._params = {
     ...this._params,
     ...{
@@ -123,7 +123,7 @@ Parser.prototype.like = function (column, value) {
   return this;
 }
 
-Parser.prototype.notLike = function (column, value) {
+ParamsBuilder.prototype.notLike = function (column, value) {
   this._params = {
     ...this._params,
     ...{
@@ -134,7 +134,7 @@ Parser.prototype.notLike = function (column, value) {
   return this;
 }
 
-Parser.prototype.ilike = function (column, value) {
+ParamsBuilder.prototype.ilike = function (column, value) {
   this._params = {
     ...this._params,
     ...{
@@ -145,7 +145,7 @@ Parser.prototype.ilike = function (column, value) {
   return this;
 }
 
-Parser.prototype.notIlike = function (column, value) {
+ParamsBuilder.prototype.notIlike = function (column, value) {
   this._params = {
     ...this._params,
     ...{
@@ -156,7 +156,7 @@ Parser.prototype.notIlike = function (column, value) {
   return this;
 }
 
-Parser.prototype.contains = function (column, values) {
+ParamsBuilder.prototype.contains = function (column, values) {
   this._params = {
     ...this._params,
     ...{
@@ -167,7 +167,7 @@ Parser.prototype.contains = function (column, values) {
   return this;
 }
 
-Parser.prototype.overlaps = function (column, values) {
+ParamsBuilder.prototype.overlaps = function (column, values) {
   this._params = {
     ...this._params,
     ...{
@@ -178,7 +178,7 @@ Parser.prototype.overlaps = function (column, values) {
   return this;
 }
 
-Parser.prototype.any = function (column, value) {
+ParamsBuilder.prototype.any = function (column, value) {
   this._params = {
     ...this._params,
     ...{
@@ -189,7 +189,7 @@ Parser.prototype.any = function (column, value) {
   return this;
 }
 
-Parser.prototype.notAny = function (column, value) {
+ParamsBuilder.prototype.notAny = function (column, value) {
   this._params = {
     ...this._params,
     ...{
@@ -200,7 +200,7 @@ Parser.prototype.notAny = function (column, value) {
   return this;
 }
 
-Parser.prototype.or = function (..._params) {
+ParamsBuilder.prototype.or = function (..._params) {
   const orFormattedParams = _params.map((param) => {
     const key = Object.keys(param)[0];
     const value = param[key];
@@ -217,7 +217,7 @@ Parser.prototype.or = function (..._params) {
   return this;
 }
 
-Parser.prototype.and = function (..._params) {
+ParamsBuilder.prototype.and = function (..._params) {
   const andFormattedParams = _params.map((param) => {
     const key = Object.keys(param)[0];
     const value = param[key];
@@ -234,8 +234,8 @@ Parser.prototype.and = function (..._params) {
   return this;
 }
 
-Parser.prototype.build = function () {
+ParamsBuilder.prototype.build = function () {
   return this._params;
 }
 
-export default Parser;
+export default ParamsBuilder;
