@@ -1,10 +1,10 @@
 const Parser = function () {
-  this.params = {};
+  this._params = {};
 };
 
 Parser.prototype.equals = function (column, value) {
-  this.params = {
-    ...this.params,
+  this._params = {
+    ...this._params,
     ...{
       [column]: `eq.${value}`
     }
@@ -14,8 +14,8 @@ Parser.prototype.equals = function (column, value) {
 };
 
 Parser.prototype.notEquals = function (column, value) {
-  this.params = {
-    ...this.params,
+  this._params = {
+    ...this._params,
     ...{
       [column]: `neq.${value}`
     }
@@ -25,8 +25,8 @@ Parser.prototype.notEquals = function (column, value) {
 }
 
 Parser.prototype.lessThan = function (column, value) {
-  this.params = {
-    ...this.params,
+  this._params = {
+    ...this._params,
     ...{
       [column]: `lt.${value}`
     }
@@ -36,8 +36,8 @@ Parser.prototype.lessThan = function (column, value) {
 }
 
 Parser.prototype.lessThanOrEqual = function (column, value) {
-  this.params = {
-    ...this.params,
+  this._params = {
+    ...this._params,
     ...{
       [column]: `lte.${value}`
     }
@@ -47,8 +47,8 @@ Parser.prototype.lessThanOrEqual = function (column, value) {
 }
 
 Parser.prototype.greaterThan = function (column, value) {
-  this.params = {
-    ...this.params,
+  this._params = {
+    ...this._params,
     ...{
       [column]: `gt.${value}`
     }
@@ -58,8 +58,8 @@ Parser.prototype.greaterThan = function (column, value) {
 }
 
 Parser.prototype.greaterThanOrEqual = function (column, value) {
-  this.params = {
-    ...this.params,
+  this._params = {
+    ...this._params,
     ...{
       [column]: `gte.${value}`
     }
@@ -69,8 +69,8 @@ Parser.prototype.greaterThanOrEqual = function (column, value) {
 }
 
 Parser.prototype.oneOf = function (column, values) {
-  this.params = {
-    ...this.params,
+  this._params = {
+    ...this._params,
     ...{
       [column]: `in.(${values.join(',')})`
     }
@@ -80,8 +80,8 @@ Parser.prototype.oneOf = function (column, values) {
 }
 
 Parser.prototype.notOneOf = function (column, values) {
-  this.params = {
-    ...this.params,
+  this._params = {
+    ...this._params,
     ...{
       [column]: `not_in.(${values.join(',')})`
     }
@@ -91,8 +91,8 @@ Parser.prototype.notOneOf = function (column, values) {
 }
 
 Parser.prototype.like = function (column, value) {
-  this.params = {
-    ...this.params,
+  this._params = {
+    ...this._params,
     ...{
       [column]: `like.%${value}%`
     }
@@ -102,8 +102,8 @@ Parser.prototype.like = function (column, value) {
 }
 
 Parser.prototype.notLike = function (column, value) {
-  this.params = {
-    ...this.params,
+  this._params = {
+    ...this._params,
     ...{
       [column]: `not_like.%${value}% `
     }
@@ -113,8 +113,8 @@ Parser.prototype.notLike = function (column, value) {
 }
 
 Parser.prototype.ilike = function (column, value) {
-  this.params = {
-    ...this.params,
+  this._params = {
+    ...this._params,
     ...{
       [column]: `ilike.%${value}% `
     }
@@ -124,8 +124,8 @@ Parser.prototype.ilike = function (column, value) {
 }
 
 Parser.prototype.notIlike = function (column, value) {
-  this.params = {
-    ...this.params,
+  this._params = {
+    ...this._params,
     ...{
       [column]: `not_ilike.%${value}% `
     }
@@ -134,15 +134,15 @@ Parser.prototype.notIlike = function (column, value) {
   return this;
 }
 
-Parser.prototype.or = function (...params) {
-  const orFormattedParams = params.map((param) => {
+Parser.prototype.or = function (..._params) {
+  const orFormattedParams = _params.map((param) => {
     const key = Object.keys(param)[0];
     const value = param[key];
     return `${key}.${value}`;
   });
 
-  this.params = {
-    ...this.params,
+  this._params = {
+    ...this._params,
     ...{
       or: `(${orFormattedParams.join(',')})`
     }
@@ -151,15 +151,15 @@ Parser.prototype.or = function (...params) {
   return this;
 }
 
-Parser.prototype.and = function (...params) {
-  const andFormattedParams = params.map((param) => {
+Parser.prototype.and = function (..._params) {
+  const andFormattedParams = _params.map((param) => {
     const key = Object.keys(param)[0];
     const value = param[key];
     return `${key}.${value}`;
   });
 
-  this.params = {
-    ...this.params,
+  this._params = {
+    ...this._params,
     ...{
       and: `(${andFormattedParams.join(',')})`
     }
@@ -169,7 +169,7 @@ Parser.prototype.and = function (...params) {
 }
 
 Parser.prototype.build = function () {
-  return this.params;
+  return this._params;
 }
 
 export default Parser;
