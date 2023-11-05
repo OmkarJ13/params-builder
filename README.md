@@ -3,6 +3,8 @@ Helper library to ease generation of query parameters for APIs.
 
 Can use utility methods for single operations
 ```
+import { equals, greaterThanOrEqualTo } from './utility.js';
+
 const params1 = equals('name', 'John');
 console.log(params1);
 // > {name: 'eq.John'}
@@ -14,6 +16,8 @@ console.log(params2);
 
 For multiple conditions, we can build the params using the builder
 ```
+import ParamsBuilder from "./params-builder.js";
+
 const params3 = new ParamsBuilder()
   .equals('name', 'John')
   .greaterThanOrEqualTo('amount', 0)
@@ -26,6 +30,9 @@ console.log(params3);
 
 Even supports complex operations such as and/or and nested conditions
 ```
+import ParamsBuilder from "./params-builder.js";
+import { equals, greaterThanOrEqualTo, lessThan } from "./utility.js";
+
 const params4 = new ParamsBuilder()
   .equals('name', 'John')
   .and(greaterThanOrEqualTo('amount', 0), lessThan('amount', 100))
