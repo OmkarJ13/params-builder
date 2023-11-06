@@ -1,7 +1,7 @@
 # params-parser
 Helper library to ease generation of query parameters for APIs. 
 
-Can use utility methods for single operations
+Can use utility methods for generating params for simple conditions
 ```
 import { equals, greaterThanOrEqualTo } from './utility.js';
 
