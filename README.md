@@ -1,5 +1,5 @@
 # params-parser
-Helper library to ease generation of query parameters for APIs. 
+Helper library to ease generation of query parameters for PostgREST APIs. 
 
 Can use utility methods for generating params for simple conditions
 ```
