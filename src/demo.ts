@@ -1,5 +1,5 @@
-import ParamsBuilder from "./params-builder.js";
-import { equals, greaterThanOrEqualTo, lessThan } from "./utility.js";
+import ParamsBuilder from "./params-builder";
+import { equals, greaterThanOrEqualTo, lessThan } from "./utility";
 
 // Can use utility methods for single operations
 const params1 = equals('name', 'John');

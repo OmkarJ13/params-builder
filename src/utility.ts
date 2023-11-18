@@ -1,4 +1,4 @@
-import ParamsBuilder from "./params-builder.js";
+import ParamsBuilder from "./params-builder";
 
 export const equals = function (column, value) {
   return new ParamsBuilder()

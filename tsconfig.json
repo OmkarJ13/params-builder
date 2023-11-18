@@ -1,0 +1,7 @@
+{
+  "compilerOptions": {
+      // TODO: Enable strict mode once all the code is fixed
+      "target": "ES5",
+      "module": "ES2015"
+  }
+}
