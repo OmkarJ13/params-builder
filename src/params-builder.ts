@@ -1,3 +1,5 @@
+// TODO: Move this whole thing to classes
+
 const ParamsBuilder = function () {
   this._params = {};
 };
