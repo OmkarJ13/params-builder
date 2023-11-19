@@ -1,44 +1,46 @@
 # params-parser
 Helper library to ease generation of query parameters for PostgREST APIs. 
 
-Can use utility methods for generating params for simple conditions
 ```
-import { equals, greaterThanOrEqualTo } from './utility.js';
+import { isNot, isNotOneOf } from "./operators";
+import { ParamsBuilder } from "./params-builder";
 
-const params1 = equals('name', 'John');
-console.log(params1);
-// > {name: 'eq.John'}
+// Type-safety, to make sure the correct keys and values for params are being passed
+interface Category {
+  id: string;
+  is_enabled: boolean;
+  system_category: string | null;
+  // ... Other properties
+}
 
-const params2 = greaterThanOrEqualTo('amount', 0);
-console.log(params2);
-// > {amount: 'gte.0'}
-```
-
-For multiple conditions, we can build the params using the builder
-```
-import ParamsBuilder from "./params-builder.js";
-
-const params3 = new ParamsBuilder()
-  .equals('name', 'John')
-  .greaterThanOrEqualTo('amount', 0)
-  .isOneOf('city', ['London', 'New York'])
+// Supports nested conditions, and various operators
+const categoryParams = new ParamsBuilder<Category>()
+  .equals('is_enabled', true)
+  .or(
+    isNot('system_category', null),
+    isNotOneOf('system_category', ['Mileage', 'Per Diem', 'Activity', 'Unspecified'])
+  )
   .build();
 
-console.log(params3);
-// > {name: 'eq.John', amount: 'gte.0', city: 'in.(London,New York)'}
-```
+console.log(categoryParams);
+// {is_enabled: 'eq.true', or: '(system_category.is_not.null,system_category.not_in.(Mileage,Per Diem,Activity,Unspecified))'}
 
-Even supports complex operations such as and/or and nested conditions
-```
-import ParamsBuilder from "./params-builder.js";
-import { equals, greaterThanOrEqualTo, lessThan } from "./utility.js";
 
-const params4 = new ParamsBuilder()
-  .equals('name', 'John')
-  .and(greaterThanOrEqualTo('amount', 0), lessThan('amount', 100))
-  .or(equals('city', 'London'), equals('city', 'New York'))
+interface Project {
+  id: string;
+  org_category_ids: number[] | null;
+  is_enabled: boolean;
+  name: string;
+  // ... Other properties
+}
+
+const projectParams = new ParamsBuilder<Project>()
+  .equals('is_enabled', true)
+  .contains('org_category_ids', [10093, 10032, 10053])
+  .ilike('name', 'some name')
   .build();
 
-console.log(params4);
-// > {name: 'eq.John', and: '(amount.gte.0,amount.lt.100)', or: '(city.eq.London,city.eq.New York)'}
+console.log(projectParams);
+// {is_enabled: 'eq.true', org_category_ids: 'cs.10093,10032,10053', name: 'ilike.some name'}
+
 ```
