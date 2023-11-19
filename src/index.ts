@@ -1,4 +1,20 @@
-import ParamsBuilder from "./params-builder";
-import { equals, notEquals, lessThan, lessThanOrEqualTo, greaterThan, greaterThanOrEqualTo, isOneOf, isNotOneOf, like, notLike, ilike } from "./utility";
+export { ParamsBuilder } from './params-builder';
 
-export { ParamsBuilder, equals, notEquals, lessThan, lessThanOrEqualTo, greaterThan, greaterThanOrEqualTo, isOneOf, isNotOneOf, like, notLike, ilike };
+export { 
+  equals,
+  notEquals,
+  lessThan,
+  lessThanOrEqualTo,
+  greaterThan,
+  greaterThanOrEqualTo,
+  like,
+  notLike,
+  contains,
+  overlaps,
+  any,
+  notAny,
+  ilike,
+  notIlike,
+  and,
+  or
+} from './operators';

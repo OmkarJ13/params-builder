@@ -1,243 +1,212 @@
-// TODO: Move this whole thing to classes
+export type Params<T> = {
+  [K in keyof T]?: string;
+} & {
+  or?: string;
+  and?: string;
+}
 
-const ParamsBuilder = function () {
-  this._params = {};
-};
+export class ParamsBuilder<T extends Record<string, any>> {
+  private params: Params<T> = {};
 
-ParamsBuilder.prototype.equals = function (column, value) {
-  this._params = {
-    ...this._params,
-    ...{
+  equals<K extends keyof T>(column: K, value: T[K]): this {
+    this.params = {
+      ...this.params,
       [column]: `eq.${value}`
-    }
-  };
+    };
 
-  return this;
-};
+    return this;
+  }
 
-ParamsBuilder.prototype.notEquals = function (column, value) {
-  this._params = {
-    ...this._params,
-    ...{
+  notEquals<K extends keyof T>(column: K, value: T[K]) {
+    this.params = {
+      ...this.params,
       [column]: `neq.${value}`
-    }
-  };
+    };
 
-  return this;
-}
+    return this;
+  }
 
-ParamsBuilder.prototype.lessThan = function (column, value) {
-  this._params = {
-    ...this._params,
-    ...{
+  lessThan<K extends keyof T>(column: K, value: T[K]) {
+    this.params = {
+      ...this.params,
       [column]: `lt.${value}`
-    }
-  };
+    };
 
-  return this;
-}
+    return this;
+  }
 
-ParamsBuilder.prototype.lessThanOrEqualTo = function (column, value) {
-  this._params = {
-    ...this._params,
-    ...{
+  lessThanOrEqualTo<K extends keyof T>(column: K, value: T[K]) {
+    this.params = {
+      ...this.params,
       [column]: `lte.${value}`
-    }
-  };
+    };
 
-  return this;
-}
+    return this;
+  }
 
-ParamsBuilder.prototype.greaterThan = function (column, value) {
-  this._params = {
-    ...this._params,
-    ...{
+  greaterThan<K extends keyof T>(column: K, value: T[K]) {
+    this.params = {
+      ...this.params,
       [column]: `gt.${value}`
-    }
-  };
+    };
 
-  return this;
-}
+    return this;
+  }
 
-ParamsBuilder.prototype.greaterThanOrEqualTo = function (column, value) {
-  this._params = {
-    ...this._params,
-    ...{
+  greaterThanOrEqualTo<K extends keyof T>(column: K, value: T[K]) {
+    this.params = {
+      ...this.params,
       [column]: `gte.${value}`
-    }
-  };
+    };
 
-  return this;
-}
+    return this;
+  }
 
-ParamsBuilder.prototype.isOneOf = function (column, values) {
-  this._params = {
-    ...this._params,
-    ...{
+  isOneOf<K extends keyof T>(column: K, values: T[K][]) {
+    this.params = {
+      ...this.params,
       [column]: `in.(${values.join(',')})`
-    }
-  };
+    };
 
-  return this;
-}
+    return this;
+  }
 
-ParamsBuilder.prototype.isNotOneOf = function (column, values) {
-  this._params = {
-    ...this._params,
-    ...{
+  isNotOneOf<K extends keyof T>(column: K, values: T[K][]) {
+    this.params = {
+      ...this.params,
       [column]: `not_in.(${values.join(',')})`
-    }
-  };
+    };
 
-  return this;
-}
+    return this;
+  }
 
-ParamsBuilder.prototype.is = function (column, value) {
-  this._params = {
-    ...this._params,
-    ...{
+  is<K extends keyof T>(column: K, value: T[K]) {
+    this.params = {
+      ...this.params,
       [column]: `is.${value}`
-    }
-  };
+    };
 
-  return this;
-}
+    return this;
+  }
 
-ParamsBuilder.prototype.isNot = function (column, value) {
-  this._params = {
-    ...this._params,
-    ...{
+  isNot<K extends keyof T>(column: K, value: T[K]) {
+    this.params = {
+      ...this.params,
       [column]: `is_not.${value}`
-    }
-  };
+    };
 
-  return this;
-}
+    return this;
+  }
 
-ParamsBuilder.prototype.like = function (column, value) {
-  this._params = {
-    ...this._params,
-    ...{
-      [column]: `like.%${value}%`
-    }
-  };
 
-  return this;
-}
+  like<K extends keyof T>(column: K, value: T[K]) {
+    this.params = {
+      ...this.params,
+      [column]: `like.${value}`
+    };
 
-ParamsBuilder.prototype.notLike = function (column, value) {
-  this._params = {
-    ...this._params,
-    ...{
-      [column]: `not_like.%${value}% `
-    }
-  };
+    return this;
+  }
 
-  return this;
-}
+  notLike<K extends keyof T>(column: K, value: T[K]) {
+    this.params = {
+      ...this.params,
+      [column]: `not_like.${value}`
+    };
 
-ParamsBuilder.prototype.ilike = function (column, value) {
-  this._params = {
-    ...this._params,
-    ...{
-      [column]: `ilike.%${value}% `
-    }
-  };
+    return this;
+  }
 
-  return this;
-}
+  ilike<K extends keyof T>(column: K, value: T[K]) {
+    this.params = {
+      ...this.params,
+      [column]: `ilike.${value}`
+    };
 
-ParamsBuilder.prototype.notIlike = function (column, value) {
-  this._params = {
-    ...this._params,
-    ...{
-      [column]: `not_ilike.%${value}% `
-    }
-  };
+    return this;
+  }
 
-  return this;
-}
+  notIlike<K extends keyof T>(column: K, value: T[K]) {
+    this.params = {
+      ...this.params,
+      [column]: `not_ilike.${value}`
+    };
 
-ParamsBuilder.prototype.contains = function (column, values) {
-  this._params = {
-    ...this._params,
-    ...{
+    return this;
+  }
+
+  contains<K extends keyof T>(column: K, values: T[K]) {
+    this.params = {
+      ...this.params,
       [column]: `cs.${values.join(',')}`
-    }
-  };
+    };
 
-  return this;
-}
+    return this;
+  }
 
-ParamsBuilder.prototype.overlaps = function (column, values) {
-  this._params = {
-    ...this._params,
-    ...{
+  overlaps<K extends keyof T>(column: K, values: T[K]) {
+    this.params = {
+      ...this.params,
       [column]: `ov.(${values.join(',')})`
-    }
-  };
+    };
 
-  return this;
+    return this;
+  }
+
+
+  any<K extends keyof T>(column: K, value: T[K]) {
+    this.params = {
+      ...this.params,
+      [column]: `any.(${value.join(',')})`
+    };
+
+    return this;
+  }
+
+  notAny<K extends keyof T>(column: K, value: T[K]) {
+    this.params = {
+      ...this.params,
+      [column]: `not_any.(${value.join(',')})`
+    };
+
+    return this;
+  }
+
+  or(...params: Params<T>[]) {
+    const formattedParams = params.map((param) => {
+      const key = Object.keys(param)[0];
+      // @ts-ignore
+      // Fix this
+      const value = param[key];
+      return `${key}.${value}`;
+    });
+
+    this.params = {
+      ...this.params,
+      or: `(${formattedParams.join(',')})`
+    };
+
+    return this;
+  }
+
+  and(...params: Params<T>[]) {
+    const formattedParams = params.map((param) => {
+      const key = Object.keys(param)[0];
+      // @ts-ignore
+      // Fix this
+      const value = param[key];
+      return `${key}.${value}`;
+    });
+
+    this.params = {
+      ...this.params,
+      and: `(${formattedParams.join(',')})`
+    };
+
+    return this;
+  }
+
+  build() {
+    return this.params;
+  }
 }
-
-ParamsBuilder.prototype.any = function (column, value) {
-  this._params = {
-    ...this._params,
-    ...{
-      [column]: `any.${value}`
-    }
-  };
-
-  return this;
-}
-
-ParamsBuilder.prototype.notAny = function (column, value) {
-  this._params = {
-    ...this._params,
-    ...{
-      [column]: `not_any.${value}`
-    }
-  };
-
-  return this;
-}
-
-ParamsBuilder.prototype.or = function (..._params) {
-  const orFormattedParams = _params.map((param) => {
-    const key = Object.keys(param)[0];
-    const value = param[key];
-    return `${key}.${value}`;
-  });
-
-  this._params = {
-    ...this._params,
-    ...{
-      or: `(${orFormattedParams.join(',')})`
-    }
-  };
-
-  return this;
-}
-
-ParamsBuilder.prototype.and = function (..._params) {
-  const andFormattedParams = _params.map((param) => {
-    const key = Object.keys(param)[0];
-    const value = param[key];
-    return `${key}.${value}`;
-  });
-
-  this._params = {
-    ...this._params,
-    ...{
-      and: `(${andFormattedParams.join(',')})`
-    }
-  };
-
-  return this;
-}
-
-ParamsBuilder.prototype.build = function () {
-  return this._params;
-}
-
-export default ParamsBuilder;
