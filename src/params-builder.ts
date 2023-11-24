@@ -4,7 +4,7 @@ import { Params } from "./types/params";
 export class ParamsBuilder<T extends Record<string, any>, V = Flatten<T>> {
   private params: Params<T> = {};
 
-  equals<K extends keyof V>(column: K, value: V[K]): this {
+  equals<K extends keyof V>(column: K, value: V[K]) {
     this.params = {
       ...this.params,
       [column]: `eq.${value}`
@@ -169,34 +169,18 @@ export class ParamsBuilder<T extends Record<string, any>, V = Flatten<T>> {
   }
 
   or(...params: Params<T>[]) {
-    const formattedParams = params.map((param) => {
-      const key = Object.keys(param)[0];
-      // @ts-ignore
-      // Fix this
-      const value = param[key];
-      return `${key}.${value}`;
-    });
-
     this.params = {
       ...this.params,
-      or: `(${formattedParams.join(',')})`
+      or: `(${this.combineParams(params)})`
     };
 
     return this;
   }
 
   and(...params: Params<T>[]) {
-    const formattedParams = params.map((param) => {
-      const key = Object.keys(param)[0];
-      // @ts-ignore
-      // Fix this
-      const value = param[key];
-      return `${key}.${value}`;
-    });
-
     this.params = {
       ...this.params,
-      and: `(${formattedParams.join(',')})`
+      and: `(${this.combineParams(params)})`
     };
 
     return this;
@@ -204,5 +188,15 @@ export class ParamsBuilder<T extends Record<string, any>, V = Flatten<T>> {
 
   build() {
     return this.params;
+  }
+
+  private combineParams(params: Params<T>[]) {
+    const formattedParams = params.map((param) => {
+      const key = Object.keys(param)[0];
+      const value = param[key];
+      return `${key}.${value}`;
+    });
+
+    return `(${formattedParams.join(',')})`;
   }
 }
