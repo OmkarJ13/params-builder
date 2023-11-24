@@ -12,4 +12,4 @@ type FlattenIntoPairs<V, Prefix extends string = '', D extends number = 5, T = R
       : FlattenIntoPairs<T[K], `${Prefix}${K & string}${'->'}`, Subtract<D, 1>>
 }[keyof T];
 
-export type Flatten<T> = FlattenIntoPairs<T> extends [string, Primitive] ? {[P in FlattenIntoPairs<T> as P[0] & string]: P[1]} : never;
+export type Flatten<T> = {[P in FlattenIntoPairs<T> as P[0]]: P[1]};
