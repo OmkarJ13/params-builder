@@ -1,14 +1,8 @@
 import { isNot, isNotOneOf } from "./operators";
 import { ParamsBuilder } from "./params-builder";
+import { AccountType, Expense, PlatformCategory, Project } from "./types/expense";
 
-interface Category {
-  id: string;
-  is_enabled: boolean;
-  system_category: string | null;
-  // ... Other properties
-}
-
-const categoryParams = new ParamsBuilder<Category>()
+const categoryParams = new ParamsBuilder<PlatformCategory>()
   .equals('is_enabled', true)
   .or(
     isNot('system_category', null),
@@ -19,20 +13,20 @@ const categoryParams = new ParamsBuilder<Category>()
 console.log(categoryParams);
 // {is_enabled: 'eq.true', or: '(system_category.is_not.null,system_category.not_in.(Mileage,Per Diem,Activity,Unspecified))'}
 
-
-interface Project {
-  id: string;
-  org_category_ids: number[] | null;
-  is_enabled: boolean;
-  name: string;
-  // ... Other properties
-}
-
 const projectParams = new ParamsBuilder<Project>()
   .equals('is_enabled', true)
-  .contains('org_category_ids', [10093, 10032, 10053])
-  .ilike('name', 'some name')
+  .contains('category_ids', [10093, 10032, 10053])
+  .ilike('name', 'Test Project')
   .build();
 
 console.log(projectParams);
-// {is_enabled: 'eq.true', org_category_ids: 'cs.10093,10032,10053', name: 'ilike.some name'}
+// {is_enabled: 'eq.true', category_ids: 'cs.10093,10032,10053', name: 'ilike.some name'}
+
+const expenseParams = new ParamsBuilder<Expense>()
+  .equals('source_account->type', AccountType.PERSONAL_CORPORATE_CREDIT_CARD_ACCOUNT)
+  .equals('is_reimbursable', false)
+  .isOneOf('matched_corporate_card_transactions->0->masked_corporate_card_number', ['1234', '5678'])
+  .build();
+
+console.log(expenseParams);
+// {source_account->type: 'eq.PERSONAL_CORPORATE_CREDIT_CARD_ACCOUNT', is_reimbursable: 'eq.false' matched_corporate_card_transactions->0->masked_corporate_card_number: 'in.(1234,5678)'}

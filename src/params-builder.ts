@@ -1,14 +1,10 @@
-export type Params<T> = {
-  [K in keyof T]?: string;
-} & {
-  or?: string;
-  and?: string;
-}
+import { Flatten } from "./types/flatten";
+import { Params } from "./types/params";
 
-export class ParamsBuilder<T extends Record<string, any>> {
+export class ParamsBuilder<T extends Record<string, any>, V = Flatten<T>> {
   private params: Params<T> = {};
 
-  equals<K extends keyof T>(column: K, value: T[K]): this {
+  equals<K extends keyof V>(column: K, value: V[K]): this {
     this.params = {
       ...this.params,
       [column]: `eq.${value}`
@@ -17,7 +13,7 @@ export class ParamsBuilder<T extends Record<string, any>> {
     return this;
   }
 
-  notEquals<K extends keyof T>(column: K, value: T[K]) {
+  notEquals<K extends keyof V>(column: K, value: V[K]) {
     this.params = {
       ...this.params,
       [column]: `neq.${value}`
@@ -26,7 +22,7 @@ export class ParamsBuilder<T extends Record<string, any>> {
     return this;
   }
 
-  lessThan<K extends keyof T>(column: K, value: T[K]) {
+  lessThan<K extends keyof V>(column: K, value: V[K]) {
     this.params = {
       ...this.params,
       [column]: `lt.${value}`
@@ -35,7 +31,7 @@ export class ParamsBuilder<T extends Record<string, any>> {
     return this;
   }
 
-  lessThanOrEqualTo<K extends keyof T>(column: K, value: T[K]) {
+  lessThanOrEqualTo<K extends keyof V>(column: K, value: V[K]) {
     this.params = {
       ...this.params,
       [column]: `lte.${value}`
@@ -44,7 +40,7 @@ export class ParamsBuilder<T extends Record<string, any>> {
     return this;
   }
 
-  greaterThan<K extends keyof T>(column: K, value: T[K]) {
+  greaterThan<K extends keyof V>(column: K, value: V[K]) {
     this.params = {
       ...this.params,
       [column]: `gt.${value}`
@@ -53,7 +49,7 @@ export class ParamsBuilder<T extends Record<string, any>> {
     return this;
   }
 
-  greaterThanOrEqualTo<K extends keyof T>(column: K, value: T[K]) {
+  greaterThanOrEqualTo<K extends keyof V>(column: K, value: V[K]) {
     this.params = {
       ...this.params,
       [column]: `gte.${value}`
@@ -62,7 +58,7 @@ export class ParamsBuilder<T extends Record<string, any>> {
     return this;
   }
 
-  isOneOf<K extends keyof T>(column: K, values: T[K][]) {
+  isOneOf<K extends keyof V>(column: K, values: V[K][]) {
     this.params = {
       ...this.params,
       [column]: `in.(${values.join(',')})`
@@ -71,7 +67,7 @@ export class ParamsBuilder<T extends Record<string, any>> {
     return this;
   }
 
-  isNotOneOf<K extends keyof T>(column: K, values: T[K][]) {
+  isNotOneOf<K extends keyof V>(column: K, values: V[K][]) {
     this.params = {
       ...this.params,
       [column]: `not_in.(${values.join(',')})`
@@ -80,7 +76,7 @@ export class ParamsBuilder<T extends Record<string, any>> {
     return this;
   }
 
-  is<K extends keyof T>(column: K, value: T[K]) {
+  is<K extends keyof V>(column: K, value: V[K]) {
     this.params = {
       ...this.params,
       [column]: `is.${value}`
@@ -89,7 +85,7 @@ export class ParamsBuilder<T extends Record<string, any>> {
     return this;
   }
 
-  isNot<K extends keyof T>(column: K, value: T[K]) {
+  isNot<K extends keyof V>(column: K, value: V[K]) {
     this.params = {
       ...this.params,
       [column]: `is_not.${value}`
@@ -99,7 +95,7 @@ export class ParamsBuilder<T extends Record<string, any>> {
   }
 
 
-  like<K extends keyof T>(column: K, value: T[K]) {
+  like<K extends keyof V>(column: K, value: V[K]) {
     this.params = {
       ...this.params,
       [column]: `like.${value}`
@@ -108,7 +104,7 @@ export class ParamsBuilder<T extends Record<string, any>> {
     return this;
   }
 
-  notLike<K extends keyof T>(column: K, value: T[K]) {
+  notLike<K extends keyof V>(column: K, value: V[K]) {
     this.params = {
       ...this.params,
       [column]: `not_like.${value}`
@@ -117,7 +113,7 @@ export class ParamsBuilder<T extends Record<string, any>> {
     return this;
   }
 
-  ilike<K extends keyof T>(column: K, value: T[K]) {
+  ilike<K extends keyof V>(column: K, value: V[K]) {
     this.params = {
       ...this.params,
       [column]: `ilike.${value}`
@@ -126,7 +122,7 @@ export class ParamsBuilder<T extends Record<string, any>> {
     return this;
   }
 
-  notIlike<K extends keyof T>(column: K, value: T[K]) {
+  notIlike<K extends keyof V>(column: K, value: V[K]) {
     this.params = {
       ...this.params,
       [column]: `not_ilike.${value}`
@@ -135,38 +131,38 @@ export class ParamsBuilder<T extends Record<string, any>> {
     return this;
   }
 
-  contains<K extends keyof T>(column: K, values: T[K]) {
+  contains<K extends keyof V>(column: K, values: V[K]) {
     this.params = {
       ...this.params,
-      [column]: `cs.${values.join(',')}`
+      [column]: `cs.${values}`
     };
 
     return this;
   }
 
-  overlaps<K extends keyof T>(column: K, values: T[K]) {
+  overlaps<K extends keyof V>(column: K, values: V[K]) {
     this.params = {
       ...this.params,
-      [column]: `ov.(${values.join(',')})`
+      [column]: `ov.(${values})`
     };
 
     return this;
   }
 
 
-  any<K extends keyof T>(column: K, value: T[K]) {
+  any<K extends keyof V>(column: K, value: V[K]) {
     this.params = {
       ...this.params,
-      [column]: `any.(${value.join(',')})`
+      [column]: `any.(${value})`
     };
 
     return this;
   }
 
-  notAny<K extends keyof T>(column: K, value: T[K]) {
+  notAny<K extends keyof V>(column: K, value: V[K]) {
     this.params = {
       ...this.params,
-      [column]: `not_any.(${value.join(',')})`
+      [column]: `not_any.(${value})`
     };
 
     return this;
