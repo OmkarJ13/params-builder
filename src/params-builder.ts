@@ -62,7 +62,7 @@ export class ParamsBuilder<T extends Record<string, any>, V = Flatten<T>> {
   isOneOf<K extends keyof V>(column: K, values: Array<V[K]>): this {
     this.params = {
       ...this.params,
-      [column]: `in.(${values.join(".")})`,
+      [column]: `in.(${values.join(",")})`,
     };
 
     return this;
