@@ -1,5 +1,6 @@
 # params-parser
-Helper library to ease generation of query parameters for Platform APIs. 
+
+Helper library to ease generation of query parameters for Platform APIs.
 
 ```
 import { isNot, isNotOneOf } from "./operators";

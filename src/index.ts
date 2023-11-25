@@ -1,6 +1,6 @@
-export { ParamsBuilder } from './params-builder';
+export { ParamsBuilder } from "./params-builder";
 
-export { 
+export {
   equals,
   notEquals,
   lessThan,
@@ -16,5 +16,5 @@ export {
   ilike,
   notIlike,
   and,
-  or
-} from './operators';
+  or,
+} from "./operators";

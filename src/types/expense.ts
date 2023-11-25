@@ -1,11 +1,11 @@
 export enum ReportState {
-  APPROVED = 'APPROVED',
-  APPROVER_INQUIRY = 'APPROVER_INQUIRY',
-  APPROVER_PENDING = 'APPROVER_PENDING',
-  DRAFT = 'DRAFT',
-  PAID = 'PAID',
-  PAYMENT_PENDING = 'PAYMENT_PENDING',
-  PAYMENT_PROCESSING = 'PAYMENT_PROCESSING',
+  APPROVED = "APPROVED",
+  APPROVER_INQUIRY = "APPROVER_INQUIRY",
+  APPROVER_PENDING = "APPROVER_PENDING",
+  DRAFT = "DRAFT",
+  PAID = "PAID",
+  PAYMENT_PENDING = "PAYMENT_PENDING",
+  PAYMENT_PROCESSING = "PAYMENT_PROCESSING",
 }
 
 export interface Account {
@@ -22,13 +22,13 @@ export interface Account {
 }
 
 export enum AccountType {
-  COMPANY_EXPENSE_ACCOUNT = 'COMPANY_EXPENSE_ACCOUNT',
-  COMPANY_CATEGORY_ACCOUNT = 'COMPANY_CATEGORY_ACCOUNT',
-  COMPANY_ADVANCE_ACCOUNT = 'COMPANY_ADVANCE_ACCOUNT',
-  COMPANY_CORPORATE_CREDIT_CARD_ACCOUNT = 'COMPANY_CORPORATE_CREDIT_CARD_ACCOUNT',
-  PERSONAL_ADVANCE_ACCOUNT = 'PERSONAL_ADVANCE_ACCOUNT',
-  PERSONAL_CORPORATE_CREDIT_CARD_ACCOUNT = 'PERSONAL_CORPORATE_CREDIT_CARD_ACCOUNT',
-  PERSONAL_CASH_ACCOUNT = 'PERSONAL_CASH_ACCOUNT',
+  COMPANY_EXPENSE_ACCOUNT = "COMPANY_EXPENSE_ACCOUNT",
+  COMPANY_CATEGORY_ACCOUNT = "COMPANY_CATEGORY_ACCOUNT",
+  COMPANY_ADVANCE_ACCOUNT = "COMPANY_ADVANCE_ACCOUNT",
+  COMPANY_CORPORATE_CREDIT_CARD_ACCOUNT = "COMPANY_CORPORATE_CREDIT_CARD_ACCOUNT",
+  PERSONAL_ADVANCE_ACCOUNT = "PERSONAL_ADVANCE_ACCOUNT",
+  PERSONAL_CORPORATE_CREDIT_CARD_ACCOUNT = "PERSONAL_CORPORATE_CREDIT_CARD_ACCOUNT",
+  PERSONAL_CASH_ACCOUNT = "PERSONAL_CASH_ACCOUNT",
 }
 
 export interface Expense {
@@ -43,12 +43,15 @@ export interface Expense {
   flattened_custom_field: Record<string, any>;
   amount: number;
   approver_comments: string[];
-  category: Pick<PlatformCategory, 'code' | 'id' | 'display_name' | 'name' | 'sub_category' | 'system_category'>;
+  category: Pick<
+    PlatformCategory,
+    "code" | "id" | "display_name" | "name" | "sub_category" | "system_category"
+  >;
   category_id: number;
   claim_amount: number;
   code: string;
   cost_center_id: number;
-  cost_center: Pick<PlatformCostCenter, 'id' | 'name' | 'code'>;
+  cost_center: Pick<PlatformCostCenter, "id" | "name" | "code">;
   created_at: Date;
   creator_user_id: string;
   currency: string;
@@ -61,7 +64,7 @@ export interface Expense {
   expense_rule_id: string;
   extracted_data: ParsedResponse;
   file_ids: string[];
-  files: Pick<File, 'id' | 'name' | 'content_type' | 'type'>[];
+  files: Pick<File, "id" | "name" | "content_type" | "type">[];
   foreign_amount: number;
   foreign_currency: string;
   hotel_is_breakfast_provided: boolean;
@@ -85,25 +88,28 @@ export interface Expense {
   mileage_calculated_amount: number;
   mileage_calculated_distance: number;
   mileage_is_round_trip: boolean;
-  mileage_rate: Pick<PlatformMileageRates, 'id' | 'code' | 'vehicle_type'>;
+  mileage_rate: Pick<PlatformMileageRates, "id" | "code" | "vehicle_type">;
   mileage_rate_id: number;
   missing_mandatory_fields: MissingMandatoryFields;
   org_id: string;
   per_diem_num_days: number;
-  per_diem_rate: Pick<PlatformPerDiemRates, 'id' | 'code' | 'name'>;
+  per_diem_rate: Pick<PlatformPerDiemRates, "id" | "code" | "name">;
   per_diem_rate_id: number;
   physical_bill_submitted_at: Date;
   policy_checks: PolicyChecks;
   policy_amount: number;
   project_id: number;
-  project: Pick<Project, 'id' | 'name' | 'sub_project' | 'code' | 'display_name'>;
+  project: Pick<
+    Project,
+    "id" | "name" | "sub_project" | "code" | "display_name"
+  >;
   purpose: string;
   report: Report;
   report_id: string;
   report_settlement_id: string;
   seq_num: string;
   source: string;
-  source_account: Pick<Account, 'id' | 'type'>;
+  source_account: Pick<Account, "id" | "type">;
   source_account_id: string;
   spent_at: Date;
   split_group_amount: number;
@@ -112,7 +118,7 @@ export interface Expense {
   state: ExpenseState;
   state_display_name: string;
   tax_amount: number;
-  tax_group: Pick<PlatformTaxGroup, 'name' | 'percentage'>;
+  tax_group: Pick<PlatformTaxGroup, "name" | "percentage">;
   tax_group_id: string;
   travel_classes: string[];
   updated_at: Date;
@@ -126,20 +132,23 @@ export interface Expense {
 export interface Employee {
   business_unit: string;
   code: string;
-  department: Pick<Department, 'id' | 'code' | 'display_name' | 'sub_department' | 'name'>;
+  department: Pick<
+    Department,
+    "id" | "code" | "display_name" | "sub_department" | "name"
+  >;
   department_id: string;
   custom_fields: NameValuePair[];
   // flattened_custom_field: Record<string, any>;
   has_accepted_invite: boolean;
   id: string;
   is_enabled: boolean;
-  level: Pick<Level, 'id' | 'name' | 'band'>;
+  level: Pick<Level, "id" | "name" | "band">;
   location: string;
   org_id: string;
   org_name: string;
   title: string;
   source: string;
-  source_account: Pick<Account, 'id' | 'type'>;
+  source_account: Pick<Account, "id" | "type">;
   source_account_id: string;
   spent_at: Date;
   split_group_amount: number;
@@ -148,7 +157,7 @@ export interface Employee {
   state: ExpenseState;
   state_display_name: string;
   tax_amount: number;
-  tax_group: Pick<PlatformTaxGroup, 'name' | 'percentage'>;
+  tax_group: Pick<PlatformTaxGroup, "name" | "percentage">;
   tax_group_id: string;
   travel_classes: string[];
   updated_at: Date;
@@ -157,7 +166,6 @@ export interface Employee {
   verifier_comments: string[];
   report_last_paid_at: Date;
   report_last_approved_at: Date;
-  
 }
 
 export interface MatchedCorporateCardTransaction {
@@ -181,8 +189,8 @@ export interface MatchedCorporateCardTransaction {
 }
 
 export enum TransactionStatus {
-  PENDING = 'PENDING',
-  POSTED = 'POSTED',
+  PENDING = "PENDING",
+  POSTED = "POSTED",
 }
 
 export interface PolicyChecks {
@@ -252,7 +260,6 @@ export interface Department {
   display_name: string;
 }
 
-
 export interface Level {
   id: string;
   org_id: string;
@@ -264,7 +271,6 @@ export interface Level {
   description: string;
   is_enabled: boolean;
 }
-
 
 export interface PlatformPerDiemRates {
   id: number;
@@ -279,7 +285,6 @@ export interface PlatformPerDiemRates {
   rate: number;
 }
 
-
 export interface ReportApprovals {
   approver_user_id: string;
   approver_user: User;
@@ -287,11 +292,10 @@ export interface ReportApprovals {
 }
 
 export enum ApprovalState {
-  APPROVAL_PENDING = 'APPROVAL_PENDING',
-  APPROVAL_DONE = 'APPROVAL_DONE',
-  APPROVAL_DISABLED = 'APPROVAL_DISABLED',
+  APPROVAL_PENDING = "APPROVAL_PENDING",
+  APPROVAL_DONE = "APPROVAL_DONE",
+  APPROVAL_DISABLED = "APPROVAL_DISABLED",
 }
-
 
 export interface PlatformTaxGroup {
   id: string;
@@ -304,13 +308,11 @@ export interface PlatformTaxGroup {
   code: string;
 }
 
-
 export interface User {
   id: string;
   full_name: string;
   email: string;
 }
-
 
 export interface Project {
   id: number;
@@ -344,10 +346,9 @@ export interface PlatformMileageRates {
 }
 
 export enum MileageUnitEnum {
-  KM = 'KM',
-  MILES = 'MILES',
+  KM = "KM",
+  MILES = "MILES",
 }
-
 
 export interface File {
   id: string;
@@ -361,10 +362,9 @@ export interface File {
 }
 
 export enum FileType {
-  RECEIPT = 'RECEIPT',
-  INTEGRATION = 'INTEGRATION',
+  RECEIPT = "RECEIPT",
+  INTEGRATION = "INTEGRATION",
 }
-
 
 export interface PlatformCostCenter {
   id: number;
@@ -391,7 +391,6 @@ export interface PlatformCategory {
   restricted_project_ids?: number[];
 }
 
-
 export interface Destination {
   actual?: unknown;
   city: string;
@@ -413,7 +412,6 @@ export interface ParsedResponse {
   vendor_name?: string;
 }
 
-
 export interface Location {
   city: string;
   country: string;
@@ -425,16 +423,16 @@ export interface Location {
 }
 
 export enum ExpenseState {
-  DRAFT = 'DRAFT',
-  COMPLETE = 'COMPLETE',
-  APPROVER_PENDING = 'APPROVER_PENDING',
-  APPROVED = 'APPROVED',
-  PAYMENT_PENDING = 'PAYMENT_PENDING',
-  PAYMENT_PROCESSING = 'PAYMENT_PROCESSING',
-  PAID = 'PAID',
+  DRAFT = "DRAFT",
+  COMPLETE = "COMPLETE",
+  APPROVER_PENDING = "APPROVER_PENDING",
+  APPROVED = "APPROVED",
+  PAYMENT_PENDING = "PAYMENT_PENDING",
+  PAYMENT_PROCESSING = "PAYMENT_PROCESSING",
+  PAID = "PAID",
 }
 
 export interface NameValuePair {
   name: string;
   value: any;
-};
+}
