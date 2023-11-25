@@ -19,7 +19,7 @@ import {
   notLike,
   or,
   overlaps,
-} from "../operators";
+} from "../src/operators";
 
 describe("operators", () => {
   it("equals(): should build equals params", () => {
