@@ -1,5 +1,5 @@
 {
-  "name": "params-builder",
+  "name": "@omkarj13/params-builder",
   "version": "1.0.0",
   "description": "",
   "main": "dist/bundle.js",
