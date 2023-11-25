@@ -1,4 +1,4 @@
-export { ParamsBuilder } from "./params-builder";
+export { ParamsBuilder } from "./core/params-builder";
 
 export {
   equals,
@@ -17,4 +17,4 @@ export {
   notIlike,
   and,
   or,
-} from "./operators";
+} from "./utils/operators";

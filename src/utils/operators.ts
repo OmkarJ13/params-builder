@@ -1,7 +1,7 @@
-import { ParamsBuilder } from "./params-builder";
-import type { Params } from "./types/params";
-import type { Flatten } from "./types/flatten";
-import type { ArrayKeys } from "./types/array-keys";
+import { ParamsBuilder } from "../core/params-builder";
+import type { Params } from "../types/params";
+import type { Flatten } from "../types/flatten";
+import type { ArrayKeys } from "../types/array-keys";
 
 // Need to figure out some way to cleanup this long template parameter, by using type variables
 export function equals<

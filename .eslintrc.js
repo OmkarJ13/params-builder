@@ -8,11 +8,5 @@ module.exports = {
     ecmaVersion: "latest",
     sourceType: "module",
   },
-  ignorePatterns: [
-    ".eslintrc.js",
-    "jest.config.js",
-    "webpack.config.js",
-    "dist/",
-  ],
   rules: {},
 };

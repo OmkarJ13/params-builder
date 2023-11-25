@@ -1,0 +1,10 @@
+# Config files
+.eslintrc.js
+jest.config.js
+webpack.config.js
+
+# Output files
+dist/
+
+# Test files
+tests/
