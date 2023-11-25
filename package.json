@@ -2,7 +2,11 @@
   "name": "params-parser",
   "version": "1.0.0",
   "description": "",
-  "main": "src/index.ts",
+  "main": "dist/bundle.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist/"
+  ],
   "scripts": {
     "test": "jest --coverage",
     "test-watch": "jest --watchAll --coverage",

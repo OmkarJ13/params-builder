@@ -1,7 +1,10 @@
 {
+  "include": ["src/**/*", "tests/**/*"],
   "compilerOptions": {
     "strict": true,
     "target": "ES5",
-    "module": "ES2015"
+    "module": "ESNext",
+    "declaration": true,
+    "outDir": "./dist"
   }
 }
