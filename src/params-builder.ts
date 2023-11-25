@@ -1,5 +1,6 @@
 import type { Flatten } from "./types/flatten";
 import type { Params } from "./types/params";
+import type { ArrayKeys } from "./types/array-keys";
 
 export class ParamsBuilder<T extends Record<string, any>, V = Flatten<T>> {
   private params: Params<T> = {};
@@ -130,11 +131,10 @@ export class ParamsBuilder<T extends Record<string, any>, V = Flatten<T>> {
     return this;
   }
 
-  contains<K extends keyof V>(column: K, values: V[K]): this {
-    if (!Array.isArray(values)) {
-      throw new Error("Contains values must be an array");
-    }
-
+  contains<K extends keyof ArrayKeys<V>>(
+    column: K,
+    values: ArrayKeys<V>[K],
+  ): this {
     this.params = {
       ...this.params,
       [column]: `cs.[${values.join(",")}]`,
@@ -143,11 +143,10 @@ export class ParamsBuilder<T extends Record<string, any>, V = Flatten<T>> {
     return this;
   }
 
-  overlaps<K extends keyof V>(column: K, values: V[K]): this {
-    if (!Array.isArray(values)) {
-      throw new Error("Overlaps values must be an array");
-    }
-
+  overlaps<K extends keyof ArrayKeys<V>>(
+    column: K,
+    values: ArrayKeys<V>[K],
+  ): this {
     this.params = {
       ...this.params,
       [column]: `ov.[${values.join(",")}]`,

@@ -1,4 +1,3 @@
-import { equals } from "../operators";
 import { ParamsBuilder } from "../params-builder";
 
 describe("ParamsBuilder", () => {
@@ -125,17 +124,19 @@ describe("ParamsBuilder", () => {
   });
 
   it("should build or params", () => {
-    const params = new ParamsBuilder()
-      .or(equals("key1", "value1"), equals("key2", "value2"))
-      .build();
+    const params1 = new ParamsBuilder().equals("key1", "value1").build();
+    const params2 = new ParamsBuilder().equals("key2", "value2").build();
+
+    const params = new ParamsBuilder().or(params1, params2).build();
 
     expect(params).toEqual({ or: "(key1.eq.value1,key2.eq.value2)" });
   });
 
   it("should build and params", () => {
-    const params = new ParamsBuilder()
-      .and(equals("key1", "value1"), equals("key2", "value2"))
-      .build();
+    const params1 = new ParamsBuilder().equals("key1", "value1").build();
+    const params2 = new ParamsBuilder().equals("key2", "value2").build();
+
+    const params = new ParamsBuilder().and(params1, params2).build();
 
     expect(params).toEqual({ and: "(key1.eq.value1,key2.eq.value2)" });
   });

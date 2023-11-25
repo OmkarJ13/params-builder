@@ -25,7 +25,7 @@ console.log(categoryParams);
 
 const projectParams = new ParamsBuilder<Project>()
   .equals("is_enabled", true)
-  .contains("category_ids", [10093, 10032, 10053])
+  .contains("approver_user_ids", ["123", "123"])
   .ilike("name", "Test Project")
   .build();
 

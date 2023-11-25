@@ -4,8 +4,8 @@
   "description": "",
   "main": "src/index.ts",
   "scripts": {
-    "test": "jest",
-    "test-watch": "jest --watchAll",
+    "test": "jest --coverage",
+    "test-watch": "jest --watchAll --coverage",
     "watch": "webpack serve --mode development --open",
     "build": "webpack --mode production",
     "prepare": "husky install",

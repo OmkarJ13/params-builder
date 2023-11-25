@@ -1,6 +1,7 @@
 import { ParamsBuilder } from "./params-builder";
 import type { Params } from "./types/params";
 import type { Flatten } from "./types/flatten";
+import type { ArrayKeys } from "./types/array-keys";
 
 // Need to figure out some way to cleanup this long template parameter, by using type variables
 export function equals<
@@ -89,15 +90,15 @@ export function notLike<
 
 export function contains<
   T extends Record<string, any>,
-  K extends keyof Flatten<T>,
->(column: K, value: Flatten<T>[K]): Params<T> {
+  K extends keyof ArrayKeys<Flatten<T>>,
+>(column: K, value: ArrayKeys<Flatten<T>>[K]): Params<T> {
   return new ParamsBuilder<T>().contains(column, value).build();
 }
 
 export function overlaps<
   T extends Record<string, any>,
-  K extends keyof Flatten<T>,
->(column: K, value: Flatten<T>[K]): Params<T> {
+  K extends keyof ArrayKeys<Flatten<T>>,
+>(column: K, value: ArrayKeys<Flatten<T>>[K]): Params<T> {
   return new ParamsBuilder<T>().overlaps(column, value).build();
 }
 
