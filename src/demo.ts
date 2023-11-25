@@ -2,9 +2,9 @@ import { isNot, isNotOneOf } from "./operators";
 import { ParamsBuilder } from "./params-builder";
 import {
   AccountType,
-  Expense,
-  PlatformCategory,
-  Project,
+  type Expense,
+  type PlatformCategory,
+  type Project,
 } from "./types/expense";
 
 const categoryParams = new ParamsBuilder<PlatformCategory>()

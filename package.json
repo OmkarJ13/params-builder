@@ -8,11 +8,14 @@
     "test-watch": "jest --watchAll",
     "watch": "webpack serve --mode development --open",
     "build": "webpack --mode production",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "lint": "eslint **/*.ts"
   },
   "lint-staged": {
+    "**/*.ts": [
+      "eslint"
+    ],
     "**/*": [
-      "eslint --fix",
       "prettier --write --ignore-unknown"
     ]
   },

@@ -1,4 +1,4 @@
-import { Subtract } from "../../node_modules/ts-arithmetic/dist/ts-arithmetic";
+import type { Subtract } from "../../node_modules/ts-arithmetic/dist/ts-arithmetic";
 
 type Primitive =
   | string
@@ -22,7 +22,7 @@ type FlattenIntoPairs<
   : {
       [K in keyof T]: T[K] extends Primitive
         ? [`${Prefix}${K & string}`, T[K]]
-        : T[K] extends (infer U)[]
+        : T[K] extends Array<infer U>
           ? U extends Primitive
             ? [`${Prefix}${K & string}`, U]
             : FlattenIntoPairs<

@@ -33,7 +33,7 @@ export enum AccountType {
 
 export interface Expense {
   // `activity_details` is not added on purpose
-  accounting_export_summary: {} | AccountingExportSummary;
+  accounting_export_summary: AccountingExportSummary;
   is_exported: boolean;
   last_exported_at: Date;
   added_to_report_at: Date;
@@ -64,7 +64,7 @@ export interface Expense {
   expense_rule_id: string;
   extracted_data: ParsedResponse;
   file_ids: string[];
-  files: Pick<File, "id" | "name" | "content_type" | "type">[];
+  files: Array<Pick<File, "id" | "name" | "content_type" | "type">>;
   foreign_amount: number;
   foreign_currency: string;
   hotel_is_breakfast_provided: boolean;
@@ -342,7 +342,7 @@ export interface PlatformMileageRates {
   code?: string;
   readableRate?: string;
   rate: number;
-  slab_rates?: { rate: number; limit: number }[];
+  slab_rates?: Array<{ rate: number; limit: number }>;
 }
 
 export enum MileageUnitEnum {
