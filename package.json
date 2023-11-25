@@ -1,5 +1,5 @@
 {
-  "name": "@fylein/params-builder",
+  "name": "params-builder",
   "version": "1.0.0",
   "description": "",
   "main": "dist/bundle.js",

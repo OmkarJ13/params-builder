@@ -1,4 +1,4 @@
-# @fylein/params-builder
+# params-builder
 
 Helper library to ease generation of query parameters for Platform APIs.
 
