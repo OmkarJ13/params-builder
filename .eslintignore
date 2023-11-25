@@ -1,9 +1,0 @@
-# Config Files
-webpack.config.js
-jest.config.js
-.eslintrc.js
-tsconfig.json
-
-# Package Files
-package.json
-package-lock.json
