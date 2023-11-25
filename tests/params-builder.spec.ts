@@ -1,4 +1,4 @@
-import { ParamsBuilder } from "../src/params-builder";
+import { ParamsBuilder } from "../src/core/params-builder";
 
 describe("ParamsBuilder", () => {
   it("should initialise params", () => {

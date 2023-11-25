@@ -1,6 +1,6 @@
-import type { Flatten } from "./types/flatten";
-import type { Params } from "./types/params";
-import type { ArrayKeys } from "./types/array-keys";
+import type { Flatten } from "../types/flatten";
+import type { Params } from "../types/params";
+import type { ArrayKeys } from "../types/array-keys";
 
 export class ParamsBuilder<T extends Record<string, any>, V = Flatten<T>> {
   private params: Params<T> = {};
