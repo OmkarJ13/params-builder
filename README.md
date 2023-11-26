@@ -2,7 +2,7 @@
 
 Helper library to ease generation of query parameters for Platform APIs.
 
-```
+```typescript
 import { isNot, isNotOneOf } from "./operators";
 import { ParamsBuilder } from "./params-builder";
 
