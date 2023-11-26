@@ -17,4 +17,8 @@ export {
   notIlike,
   and,
   or,
+  is,
+  isNot,
+  isNotOneOf,
+  isOneOf,
 } from "./utils/operators";
