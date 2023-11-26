@@ -3,7 +3,7 @@
   "compilerOptions": {
     "strict": true,
     "target": "ES5",
-    "module": "ESNext",
+    "module": "ES2015",
     "declaration": true,
     "outDir": "./dist"
   }

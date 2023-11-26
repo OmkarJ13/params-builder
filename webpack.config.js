@@ -17,6 +17,9 @@ module.exports = {
   output: {
     filename: "bundle.js",
     path: path.resolve(__dirname, "dist"),
+    library: "ParamsBuilder",
+    libraryTarget: "umd",
+    clean: true,
   },
   devServer: {
     static: path.join(__dirname, "dist"),

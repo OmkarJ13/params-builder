@@ -1,6 +1,6 @@
 {
   "name": "@omkarj13/params-builder",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "main": "dist/bundle.js",
   "types": "dist/index.d.ts",
@@ -11,7 +11,7 @@
     "test": "jest --coverage",
     "test-watch": "jest --watchAll --coverage",
     "watch": "webpack serve --mode development --open",
-    "build": "rm -rf dist/ && webpack --mode production",
+    "build": "webpack --mode production",
     "prepare": "husky install",
     "lint": "eslint **/*.ts"
   },
