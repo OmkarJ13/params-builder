@@ -1,7 +1,18 @@
 # params-builder
 
-Helper library to ease generation of query parameters for Platform APIs.
+### Helper library to ease generation of query parameters for Platform APIs.
 
+Install via NPM (Recommended)
+```
+npm i @omkarj13/params-builder
+```
+
+Install via CDN
+```
+<script src="https://www.unpkg.com/@omkarj13/params-builder@latest/dist/bundle.js"></script>
+```
+
+Code Snippet
 ```typescript
 import { isNot, isNotOneOf } from "./operators";
 import { ParamsBuilder } from "./params-builder";
