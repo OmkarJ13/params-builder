@@ -15,7 +15,8 @@ type Primitive =
 type FlattenIntoPairs<
   V,
   Prefix extends string = "",
-  D extends number = 5,
+  // Max depth is 3, Platform API doesn't support more than 3 levels of nesting
+  D extends number = 3,
   T = Required<V>,
 > = D extends 0
   ? never
