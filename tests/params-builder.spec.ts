@@ -140,4 +140,22 @@ describe("ParamsBuilder", () => {
 
     expect(params).toEqual({ and: "(key1.eq.value1,key2.eq.value2)" });
   });
+
+  it("should build offset params", () => {
+    const params = new ParamsBuilder().offset(10).build();
+
+    expect(params).toEqual({ offset: 10 });
+  });
+
+  it("should build limit params", () => {
+    const params = new ParamsBuilder().limit(10).build();
+
+    expect(params).toEqual({ limit: 10 });
+  });
+
+  it("should build order params", () => {
+    const params = new ParamsBuilder().order("key", "asc").build();
+
+    expect(params).toEqual({ order: "key.asc" });
+  });
 });

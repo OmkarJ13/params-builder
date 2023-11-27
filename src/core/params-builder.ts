@@ -191,6 +191,33 @@ export class ParamsBuilder<T extends Record<string, any>, V = Flatten<T>> {
     return this;
   }
 
+  offset(by: number): this {
+    this.params = {
+      ...this.params,
+      offset: by,
+    };
+
+    return this;
+  }
+
+  limit(by: number): this {
+    this.params = {
+      ...this.params,
+      limit: by,
+    };
+
+    return this;
+  }
+
+  order<K extends keyof V>(column: K, direction: "asc" | "desc"): this {
+    this.params = {
+      ...this.params,
+      order: `${String(column)}.${direction}`,
+    };
+
+    return this;
+  }
+
   build(): Params<T> {
     return this.params;
   }
