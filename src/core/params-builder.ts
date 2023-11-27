@@ -3,7 +3,7 @@ import type { Params } from "../types/params";
 import type { ArrayKeys } from "../types/array-keys";
 
 export class ParamsBuilder<T extends Record<string, any>, V = Flatten<T>> {
-  private params: Params<T> = {};
+  private params: Params<V> = {};
 
   equals<K extends keyof V>(column: K, value: V[K]): this {
     this.params = {
@@ -173,7 +173,7 @@ export class ParamsBuilder<T extends Record<string, any>, V = Flatten<T>> {
     return this;
   }
 
-  or(...params: Array<Params<T>>): this {
+  or(...params: Array<Params<V>>): this {
     this.params = {
       ...this.params,
       or: `(${this.combineParams(params)})`,
@@ -182,7 +182,7 @@ export class ParamsBuilder<T extends Record<string, any>, V = Flatten<T>> {
     return this;
   }
 
-  and(...params: Array<Params<T>>): this {
+  and(...params: Array<Params<V>>): this {
     this.params = {
       ...this.params,
       and: `(${this.combineParams(params)})`,
@@ -218,15 +218,16 @@ export class ParamsBuilder<T extends Record<string, any>, V = Flatten<T>> {
     return this;
   }
 
-  build(): Params<T> {
+  build(): Params<V> {
     return this.params;
   }
 
-  private combineParams(params: Array<Params<T>>): string {
+  private combineParams(params: Array<Params<V>>): string {
     const formattedParams = params.map((param) => {
-      const key = Object.keys(param)[0];
+      const key = Object.keys(param)[0] as keyof Params<V>;
       const value = param[key];
-      return `${key}.${value}`;
+
+      return `${String(key)}.${value}`;
     });
 
     return `${formattedParams.join(",")}`;
