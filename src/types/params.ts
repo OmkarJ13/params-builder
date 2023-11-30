@@ -3,4 +3,7 @@ export type Params<T> = {
 } & {
   or?: string;
   and?: string;
+  offset?: number;
+  limit?: number;
+  order?: string;
 };
