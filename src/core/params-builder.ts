@@ -1,11 +1,19 @@
 import type { Flatten } from "../types/flatten";
 import type { Params } from "../types/params";
-import type { ArrayKeys } from "../types/array-keys";
+import type { ArrayKeys, NonArrayKeys, RemoveArray } from "../types/array";
 
-export class ParamsBuilder<T extends Record<string, any>, V = Flatten<T>> {
-  private params: Params<V> = {};
+export class ParamsBuilder<
+  T extends Record<string, any>,
+  TFlattened = Flatten<T>,
+  TArrayKeys = ArrayKeys<TFlattened>,
+  TNonArrayKeys = NonArrayKeys<TFlattened>,
+> {
+  private params: Params<TFlattened> = {};
 
-  equals<K extends keyof V>(column: K, value: V[K]): this {
+  equals<K extends keyof TNonArrayKeys>(
+    column: K,
+    value: TNonArrayKeys[K],
+  ): this {
     this.params = {
       ...this.params,
       [column]: `eq.${String(value)}`,
@@ -14,7 +22,10 @@ export class ParamsBuilder<T extends Record<string, any>, V = Flatten<T>> {
     return this;
   }
 
-  notEquals<K extends keyof V>(column: K, value: V[K]): this {
+  notEquals<K extends keyof TNonArrayKeys>(
+    column: K,
+    value: TNonArrayKeys[K],
+  ): this {
     this.params = {
       ...this.params,
       [column]: `neq.${String(value)}`,
@@ -23,7 +34,10 @@ export class ParamsBuilder<T extends Record<string, any>, V = Flatten<T>> {
     return this;
   }
 
-  lessThan<K extends keyof V>(column: K, value: V[K]): this {
+  lessThan<K extends keyof TNonArrayKeys>(
+    column: K,
+    value: TNonArrayKeys[K],
+  ): this {
     this.params = {
       ...this.params,
       [column]: `lt.${String(value)}`,
@@ -32,7 +46,10 @@ export class ParamsBuilder<T extends Record<string, any>, V = Flatten<T>> {
     return this;
   }
 
-  lessThanOrEqualTo<K extends keyof V>(column: K, value: V[K]): this {
+  lessThanOrEqualTo<K extends keyof TNonArrayKeys>(
+    column: K,
+    value: TNonArrayKeys[K],
+  ): this {
     this.params = {
       ...this.params,
       [column]: `lte.${String(value)}`,
@@ -41,7 +58,22 @@ export class ParamsBuilder<T extends Record<string, any>, V = Flatten<T>> {
     return this;
   }
 
-  greaterThan<K extends keyof V>(column: K, value: V[K]): this {
+  lessThanOrEqualToAbsolute<K extends keyof TNonArrayKeys>(
+    column: K,
+    value: TNonArrayKeys[K],
+  ): this {
+    this.params = {
+      ...this.params,
+      [column]: `alte.${String(value)}`,
+    };
+
+    return this;
+  }
+
+  greaterThan<K extends keyof TNonArrayKeys>(
+    column: K,
+    value: TNonArrayKeys[K],
+  ): this {
     this.params = {
       ...this.params,
       [column]: `gt.${String(value)}`,
@@ -50,7 +82,10 @@ export class ParamsBuilder<T extends Record<string, any>, V = Flatten<T>> {
     return this;
   }
 
-  greaterThanOrEqualTo<K extends keyof V>(column: K, value: V[K]): this {
+  greaterThanOrEqualTo<K extends keyof TNonArrayKeys>(
+    column: K,
+    value: TNonArrayKeys[K],
+  ): this {
     this.params = {
       ...this.params,
       [column]: `gte.${String(value)}`,
@@ -59,7 +94,22 @@ export class ParamsBuilder<T extends Record<string, any>, V = Flatten<T>> {
     return this;
   }
 
-  isOneOf<K extends keyof V>(column: K, values: Array<V[K]>): this {
+  greaterThanEqualToAbsolute<K extends keyof TNonArrayKeys>(
+    column: K,
+    value: TNonArrayKeys[K],
+  ): this {
+    this.params = {
+      ...this.params,
+      [column]: `agte.${String(value)}`,
+    };
+
+    return this;
+  }
+
+  isOneOf<K extends keyof TNonArrayKeys>(
+    column: K,
+    values: Array<TNonArrayKeys[K]>,
+  ): this {
     this.params = {
       ...this.params,
       [column]: `in.(${values.join(",")})`,
@@ -68,7 +118,10 @@ export class ParamsBuilder<T extends Record<string, any>, V = Flatten<T>> {
     return this;
   }
 
-  isNotOneOf<K extends keyof V>(column: K, values: Array<V[K]>): this {
+  isNotOneOf<K extends keyof TNonArrayKeys>(
+    column: K,
+    values: Array<TNonArrayKeys[K]>,
+  ): this {
     this.params = {
       ...this.params,
       [column]: `not_in.(${values.join(",")})`,
@@ -77,7 +130,7 @@ export class ParamsBuilder<T extends Record<string, any>, V = Flatten<T>> {
     return this;
   }
 
-  is<K extends keyof V>(column: K, value: V[K]): this {
+  is<K extends keyof TFlattened>(column: K, value: TFlattened[K]): this {
     this.params = {
       ...this.params,
       [column]: `is.${String(value)}`,
@@ -86,7 +139,7 @@ export class ParamsBuilder<T extends Record<string, any>, V = Flatten<T>> {
     return this;
   }
 
-  isNot<K extends keyof V>(column: K, value: V[K]): this {
+  isNot<K extends keyof TFlattened>(column: K, value: TFlattened[K]): this {
     this.params = {
       ...this.params,
       [column]: `is_not.${String(value)}`,
@@ -95,7 +148,7 @@ export class ParamsBuilder<T extends Record<string, any>, V = Flatten<T>> {
     return this;
   }
 
-  like<K extends keyof V>(column: K, value: V[K]): this {
+  like<K extends keyof TFlattened>(column: K, value: TFlattened[K]): this {
     this.params = {
       ...this.params,
       [column]: `like.${String(value)}`,
@@ -104,7 +157,7 @@ export class ParamsBuilder<T extends Record<string, any>, V = Flatten<T>> {
     return this;
   }
 
-  notLike<K extends keyof V>(column: K, value: V[K]): this {
+  notLike<K extends keyof TFlattened>(column: K, value: TFlattened[K]): this {
     this.params = {
       ...this.params,
       [column]: `not_like.${String(value)}`,
@@ -113,7 +166,7 @@ export class ParamsBuilder<T extends Record<string, any>, V = Flatten<T>> {
     return this;
   }
 
-  ilike<K extends keyof V>(column: K, value: V[K]): this {
+  ilike<K extends keyof TFlattened>(column: K, value: TFlattened[K]): this {
     this.params = {
       ...this.params,
       [column]: `ilike.${String(value)}`,
@@ -122,7 +175,7 @@ export class ParamsBuilder<T extends Record<string, any>, V = Flatten<T>> {
     return this;
   }
 
-  notIlike<K extends keyof V>(column: K, value: V[K]): this {
+  notIlike<K extends keyof TFlattened>(column: K, value: TFlattened[K]): this {
     this.params = {
       ...this.params,
       [column]: `not_ilike.${String(value)}`,
@@ -131,9 +184,10 @@ export class ParamsBuilder<T extends Record<string, any>, V = Flatten<T>> {
     return this;
   }
 
-  contains<K extends keyof ArrayKeys<V>>(
+  // This doesn't support objects yet, to add this as per use case
+  contains<K extends keyof ArrayKeys<TFlattened>>(
     column: K,
-    values: ArrayKeys<V>[K],
+    values: ArrayKeys<TFlattened>[K],
   ): this {
     this.params = {
       ...this.params,
@@ -143,9 +197,48 @@ export class ParamsBuilder<T extends Record<string, any>, V = Flatten<T>> {
     return this;
   }
 
-  overlaps<K extends keyof ArrayKeys<V>>(
+  // This doesn't support objects yet, to add this as per use case
+  containsOrIsNull<K extends keyof ArrayKeys<TFlattened>>(
     column: K,
-    values: ArrayKeys<V>[K],
+    values: ArrayKeys<TFlattened>[K],
+  ): this {
+    this.params = {
+      ...this.params,
+      [column]: `csn.[${values.join(",")}]`,
+    };
+
+    return this;
+  }
+
+  // This doesn't support objects yet, to add this as per use case
+  containedBy<K extends keyof ArrayKeys<TFlattened>>(
+    column: K,
+    values: ArrayKeys<TFlattened>[K],
+  ): this {
+    this.params = {
+      ...this.params,
+      [column]: `cd.[${values.join(",")}]`,
+    };
+
+    return this;
+  }
+
+  // This doesn't support objects yet, to add this as per use case
+  notContainedBy<K extends keyof ArrayKeys<TFlattened>>(
+    column: K,
+    values: ArrayKeys<TFlattened>[K],
+  ): this {
+    this.params = {
+      ...this.params,
+      [column]: `not_cd.[${values.join(",")}]`,
+    };
+
+    return this;
+  }
+
+  overlaps<K extends keyof ArrayKeys<TFlattened>>(
+    column: K,
+    values: ArrayKeys<TFlattened>[K],
   ): this {
     this.params = {
       ...this.params,
@@ -155,7 +248,10 @@ export class ParamsBuilder<T extends Record<string, any>, V = Flatten<T>> {
     return this;
   }
 
-  any<K extends keyof V>(column: K, value: V[K]): this {
+  any<K extends keyof TArrayKeys>(
+    column: K,
+    value: RemoveArray<TArrayKeys[K]>,
+  ): this {
     this.params = {
       ...this.params,
       [column]: `any.${String(value)}`,
@@ -164,7 +260,10 @@ export class ParamsBuilder<T extends Record<string, any>, V = Flatten<T>> {
     return this;
   }
 
-  notAny<K extends keyof V>(column: K, value: V[K]): this {
+  notAny<K extends keyof TArrayKeys>(
+    column: K,
+    value: RemoveArray<TArrayKeys[K]>,
+  ): this {
     this.params = {
       ...this.params,
       [column]: `not_any.${String(value)}`,
@@ -173,7 +272,7 @@ export class ParamsBuilder<T extends Record<string, any>, V = Flatten<T>> {
     return this;
   }
 
-  or(...params: Array<Params<V>>): this {
+  or(...params: Array<Params<TFlattened>>): this {
     this.params = {
       ...this.params,
       or: `(${this.combineParams(params)})`,
@@ -182,7 +281,7 @@ export class ParamsBuilder<T extends Record<string, any>, V = Flatten<T>> {
     return this;
   }
 
-  and(...params: Array<Params<V>>): this {
+  and(...params: Array<Params<TFlattened>>): this {
     this.params = {
       ...this.params,
       and: `(${this.combineParams(params)})`,
@@ -209,22 +308,34 @@ export class ParamsBuilder<T extends Record<string, any>, V = Flatten<T>> {
     return this;
   }
 
-  order<K extends keyof V>(column: K, direction: "asc" | "desc"): this {
-    this.params = {
-      ...this.params,
-      order: `${String(column)}.${direction}`,
-    };
+  order<K extends keyof TFlattened>(
+    column: K,
+    direction: "asc" | "desc",
+  ): this {
+    const order = this.params.order ?? "";
+
+    if (order === "") {
+      this.params = {
+        ...this.params,
+        order: `${String(column)}.${direction}`,
+      };
+    } else {
+      this.params = {
+        ...this.params,
+        order: `${order},${String(column)}.${direction}`,
+      };
+    }
 
     return this;
   }
 
-  build(): Params<V> {
+  build(): Params<TFlattened> {
     return this.params;
   }
 
-  private combineParams(params: Array<Params<V>>): string {
+  private combineParams(params: Array<Params<TFlattened>>): string {
     const formattedParams = params.map((param) => {
-      const key = Object.keys(param)[0] as keyof Params<V>;
+      const key = Object.keys(param)[0] as keyof Params<TFlattened>;
       const value = param[key];
 
       return `${String(key)}.${value}`;
